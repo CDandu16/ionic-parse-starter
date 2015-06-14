@@ -35,10 +35,25 @@ angular.module('ionicParseApp.controllers', [])
     }
 })
 
-.controller('HomeController', function($scope, $state, $rootScope) {
+.controller('HomeController', function($scope, $state, $rootScope, $cordovaCamera ) {
+    $scope.takePicture = function() {
+        var options = {
+            quality : 75,
+            destinationType : Camera.DestinationType.DATA_URL,
+            sourceType : Camera.PictureSourceType.CAMERA,
+            allowEdit : true,
+            encodingType: Camera.EncodingType.JPEG,
+            targetWidth: 300,
+            targetHeight: 300,
+            popoverOptions: CameraPopoverOptions,
+            saveToPhotoAlbum: false
+        };
 
-    if (!$rootScope.isLoggedIn) {
-        $state.go('welcome');
+        $cordovaCamera.getPicture(options).then(function(imageData) {
+            $scope.imgURI = "data:image/jpeg;base64," + imageData;
+        }, function(err) {
+            // An error occured. Show a message to the user
+        });
     }
 })
 
@@ -201,4 +216,4 @@ angular.module('ionicParseApp.controllers', [])
     $scope.toggleMenu = function() {
         $scope.sideMenuController.toggleRight();
     };
-});
+})

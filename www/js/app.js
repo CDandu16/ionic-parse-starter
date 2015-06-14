@@ -49,6 +49,16 @@ angular.module('ionicParseApp',
                 }
             })
 
+            .state('app.create', {
+                url: '/create',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/create.html',
+                        controller: 'CreaterController'
+                    }
+                }
+            })
+
             .state('app.forgot', {
                 url: '/forgot',
                 views: {

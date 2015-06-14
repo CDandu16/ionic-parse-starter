@@ -35,7 +35,7 @@ angular.module('ionicParseApp.controllers', [])
     }
 })
 
-.controller('HomeController', function($scope, $state, $rootScope, $cordovaCamera ) {
+.controller('CreaterController', function($scope, $state, $rootScope, $cordovaCamera ) {
     $scope.takePicture = function() {
         var options = {
             quality : 75,
@@ -54,6 +54,13 @@ angular.module('ionicParseApp.controllers', [])
         }, function(err) {
             // An error occured. Show a message to the user
         });
+    }
+})
+
+.controller('HomeController', function($scope, $state, $rootScope) {
+
+    if (!$rootScope.isLoggedIn) {
+        $state.go('welcome');
     }
 })
 

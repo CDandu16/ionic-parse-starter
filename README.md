@@ -20,4 +20,4 @@ Run the project in your browser by running `ionic serve`.
 
 ## Credits
 
-Made with love by [alevicki](https://github.com/alevicki)
+Made with swag by Chaitu and Tim

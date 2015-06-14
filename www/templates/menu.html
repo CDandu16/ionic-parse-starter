@@ -17,7 +17,7 @@
 		</ion-header-bar>
 		<ion-content>
 			<ion-list>
-				<ion-item nav-clear menu-close ui-sref="app.home">Home</ion-item>
+				<ion-item nav-clear menu-close ui-sref="app.home" ng-show = "isLoggedIn">Home</ion-item>
 				<ion-item nav-clear menu-close ui-sref="app.login" ng-hide="isLoggedIn">Login</ion-item>
 				<ion-item nav-clear menu-close ui-sref="app.register" ng-hide="isLoggedIn">Register</ion-item>
 				<ion-item nav-clear menu-close ng-click="logout()" ng-show="isLoggedIn">Logout</ion-item>

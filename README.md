@@ -4,14 +4,6 @@ A starter app for Ionic with user integration against Parse. With this app you w
 
 ## Quickstart
 
-### Parse setup
-
-Create a free account over at [Parse](https://www.parse.com).
-
-Copy your [Application ID](https://www.parse.com/apps/perspyre/edit#keys) and [Javascript Key](https://www.parse.com/apps/perspyre/edit#keys) into the `Parse.initialize` function in `www/js/app.js`.
-
-Create the API endpoints for user logins and registrations by creating a User collection (https://parse.com/apps/[YOURAPPNAME]/collections).
-
 ### Ionic setup
 
 Ensure you have [Node.js & NPM](http://nodejs.org/) installed and in your PATH.

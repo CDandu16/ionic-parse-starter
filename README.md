@@ -28,3 +28,5 @@ Made with love by [alevicki](https://github.com/alevicki)
 3).Add Friends
 4).Send Pictures to friends
 5).Send array of pictures back to original user
+=======
+Made with swag by Chaitu and Tim

@@ -21,3 +21,10 @@ Run the project in your browser by running `ionic serve`.
 ## Credits
 
 Made with love by [alevicki](https://github.com/alevicki)
+
+## TodoList
+1).Add Usernames
+2).Use camera to take picture
+3).Add Friends
+4).Send Pictures to friends
+5).Send array of pictures back to original user

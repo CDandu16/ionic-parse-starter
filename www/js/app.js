@@ -72,7 +72,7 @@ angular.module('ionicParseApp',
         $urlRouterProvider.otherwise('/welcome');
     })
     .run(function ($state, $rootScope) {
-        Parse.initialize('applicationId', 'javascriptKey');
+        Parse.initialize('z6qmzbMoG6ftVkX2O61KyEbaNLOg421ZL01xg3d1', '773ll7VnrCyDrVnfIJLdxgU7t71Hnam8k5aN5CXm');
         var currentUser = Parse.User.current();
         $rootScope.user = null;
         $rootScope.isLoggedIn = false;
@@ -83,4 +83,3 @@ angular.module('ionicParseApp',
             $state.go('app.home');
         }
     });
-

@@ -168,7 +168,7 @@ angular.module('ionicParseApp.controllers', [])
         });
 
         var user = new Parse.User();
-        user.set("username", $scope.user.email);
+        user.set("username", $scope.user.username);
         user.set("password", $scope.user.password);
         user.set("email", $scope.user.email);
 
@@ -187,7 +187,7 @@ angular.module('ionicParseApp.controllers', [])
                     $scope.error.message = 'Please specify a valid email ' +
                         'address';
                 } else if (error.code === 202) {
-                    $scope.error.message = 'The email address is already ' +
+                    $scope.error.message = 'The username is already ' +
                         'registered';
                 } else {
                     $scope.error.message = error.message;

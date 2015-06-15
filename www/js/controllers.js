@@ -86,6 +86,13 @@ angular.module('ionicParseApp.controllers', [])
           // error is a Parse.Error with an error code and message.
         }
       });
+      $scope.imgURI = undefined;
+      $ionicHistory.nextViewOptions({
+        disableBack: true
+      });
+      $state.go('app.home', {
+          clear: true
+      });
     }
   }
 })

@@ -3,5 +3,8 @@
         <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
         <img ng-show="imgURI === undefined" ng-src="http://placehold.it/300x300">
         <button class="button" ng-click="takePicture()">Take Picture</button>
+        <button class="button">Set chain length</button>
+        <button class="button">Pick User</button>
+        <button class="button" ng-click="sendData()">Send</button>
     </ion-content>
 </ion-view>

@@ -36,6 +36,8 @@ angular.module('ionicParseApp.controllers', [])
 })
 
 .controller('CreaterController', function($scope, $state, $rootScope, $cordovaCamera ) {
+  $scope.imgURI = null;
+  if ($rootScope.isLoggedIn) {
     $scope.takePicture = function() {
         var options = {
             quality : 75,
@@ -51,10 +53,10 @@ angular.module('ionicParseApp.controllers', [])
 
         $cordovaCamera.getPicture(options).then(function(imageData) {
             $scope.imgURI = "data:image/jpeg;base64," + imageData;
-            var Picture = Parse.Object.extend("Picture");
+            /*var Picture = Parse.Object.extend("Picture");
             var picture = new Picture();
             picture.set("image64", $scope.imgURI)
-            picture.set("user", $scope.user.username)
+            picture.set("username", $rootScope.user)
             picture.save(null, {
               success: function(picture) {
                 //execute succes
@@ -63,12 +65,28 @@ angular.module('ionicParseApp.controllers', [])
                 // Execute any logic that should take place if the save fails.
                 // error is a Parse.Error with an error code and message.
               }
-            });
-
+            });*/
+            //end of Parse stuff
         }, function(err) {
             // An error occured. Show a message to the user
         });
     }
+    $scope.sendData = function(){
+      var Picture = Parse.Object.extend("Picture");
+      var picture = new Picture();
+      picture.set("image64", $scope.imgURI)
+      picture.set("username", $rootScope.user)
+      picture.save(null, {
+        success: function(picture) {
+          //execute succes
+        },
+        error: function(picture, error) {
+          // Execute any logic that should take place if the save fails.
+          // error is a Parse.Error with an error code and message.
+        }
+      });
+    }
+  }
 })
 
 .controller('HomeController', function($scope, $state, $rootScope) {

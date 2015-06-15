@@ -51,6 +51,20 @@ angular.module('ionicParseApp.controllers', [])
 
         $cordovaCamera.getPicture(options).then(function(imageData) {
             $scope.imgURI = "data:image/jpeg;base64," + imageData;
+            var Picture = Parse.Object.extend("Picture");
+            var picture = new Picture();
+            picture.set("image64", $scope.imgURI)
+            picture.set("user", $scope.user.username)
+            picture.save(null, {
+              success: function(picture) {
+                //execute succes
+              },
+              error: function(picture, error) {
+                // Execute any logic that should take place if the save fails.
+                // error is a Parse.Error with an error code and message.
+              }
+            });
+
         }, function(err) {
             // An error occured. Show a message to the user
         });

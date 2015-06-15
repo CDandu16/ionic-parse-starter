@@ -36,7 +36,7 @@ angular.module('ionicParseApp.controllers', [])
     }
 })
 
-.controller('CreaterController', function($scope, $state, $rootScope, $cordovaCamera ) {
+.controller('CreaterController', function($scope, $state, $rootScope, $cordovaCamera, $ionicHistory ) {
   $scope.imgURI = undefined;
   if ($rootScope.isLoggedIn) {
     $scope.takePicture = function() {
@@ -54,20 +54,7 @@ angular.module('ionicParseApp.controllers', [])
 
         $cordovaCamera.getPicture(options).then(function(imageData) {
             $scope.imgURI = "data:image/jpeg;base64," + imageData;
-            /*var Picture = Parse.Object.extend("Picture");
-            var picture = new Picture();
-            picture.set("image64", $scope.imgURI)
-            picture.set("username", $rootScope.user)
-            picture.save(null, {
-              success: function(picture) {
-                //execute succes
-              },
-              error: function(picture, error) {
-                // Execute any logic that should take place if the save fails.
-                // error is a Parse.Error with an error code and message.
-              }
-            });*/
-            //end of Parse stuff
+            //do other stuff
         }, function(err) {
             // An error occured. Show a message to the user
         });
@@ -94,6 +81,12 @@ angular.module('ionicParseApp.controllers', [])
           clear: true
       });
     }
+  }
+})
+
+.controller('FriendController', function($scope, $state, $rootScope, $stateParams, $ionicHistory){
+  if (!$rootScope.isLoggedIn) {
+        $state.go('welcome');
   }
 })
 
@@ -219,9 +212,9 @@ angular.module('ionicParseApp.controllers', [])
         user.signUp(null, {
             success: function(user) {
                 $ionicLoading.hide();
-                $rootScope.user = Parse.User.current().getUsername();;
+                $rootScope.user = Parse.User.current();
                 $rootScope.isLoggedIn = true;
-                $state.go('app.create', {
+                $state.go('app.home', {
                     clear: true
                 });
             },

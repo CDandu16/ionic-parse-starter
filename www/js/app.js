@@ -77,6 +77,16 @@ angular.module('ionicParseApp',
                         controller: 'RegisterController'
                     }
                 }
+            })
+
+            .state('app.friend', {
+                url: '/friend',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/friend.html',
+                        controller: 'FriendController'
+                    }
+                }
             });
 
         $urlRouterProvider.otherwise('/welcome');

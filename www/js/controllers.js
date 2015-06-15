@@ -10,6 +10,7 @@ angular.module('ionicParseApp.controllers', [])
         Parse.User.logOut();
         $rootScope.user = null;
         $rootScope.isLoggedIn = false;
+        $rootScope.imgURI = undefined;
         $state.go('welcome', {
             clear: true
         });
@@ -36,7 +37,7 @@ angular.module('ionicParseApp.controllers', [])
 })
 
 .controller('CreaterController', function($scope, $state, $rootScope, $cordovaCamera ) {
-  $scope.imgURI = null;
+  $scope.imgURI = undefined;
   if ($rootScope.isLoggedIn) {
     $scope.takePicture = function() {
         var options = {
@@ -91,12 +92,12 @@ angular.module('ionicParseApp.controllers', [])
 
 .controller('HomeController', function($scope, $state, $rootScope) {
 
-    if (!$rootScope.isLoggedIn) {
+  if (!$rootScope.isLoggedIn) {
         $state.go('welcome');
     }
 })
 
-.controller('LoginController', function($scope, $state, $rootScope, $ionicLoading) {
+.controller('LoginController', function($scope, $state, $rootScope, $ionicLoading, $ionicHistory) {
     $scope.user = {
         username: null,
         password: null
@@ -119,9 +120,13 @@ angular.module('ionicParseApp.controllers', [])
                 $ionicLoading.hide();
                 $rootScope.user = user;
                 $rootScope.isLoggedIn = true;
+                $ionicHistory.nextViewOptions({
+                  disableBack: true
+                });
                 $state.go('app.home', {
                     clear: true
                 });
+
             },
             error: function(user, err) {
                 $ionicLoading.hide();
@@ -207,9 +212,9 @@ angular.module('ionicParseApp.controllers', [])
         user.signUp(null, {
             success: function(user) {
                 $ionicLoading.hide();
-                $rootScope.user = user;
+                $rootScope.user = Parse.User.current().getUsername();;
                 $rootScope.isLoggedIn = true;
-                $state.go('app.home', {
+                $state.go('app.create', {
                     clear: true
                 });
             },
@@ -247,6 +252,7 @@ angular.module('ionicParseApp.controllers', [])
         Parse.User.logOut();
         $rootScope.user = null;
         $rootScope.isLoggedIn = false;
+        $rootScope.imgURI = undefined;
         $state.go('welcome', {
             clear: true
         });

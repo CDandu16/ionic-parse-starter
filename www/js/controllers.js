@@ -62,6 +62,7 @@ angular.module('ionicParseApp.controllers', [])
     $scope.sendData = function(){
       var Picture = Parse.Object.extend("Picture");
       var picture = new Picture();
+      picture.set("name", $scope.user.nameOfChain)
       picture.set("image64", $scope.imgURI)
       picture.set("chain", $scope.user.chainLength)
       picture.set("nextuser", $scope.user.usertosendto)
@@ -134,7 +135,7 @@ angular.module('ionicParseApp.controllers', [])
   }
 })
 
-.controller('RequestController', function($scope, $state, $rootScope) {
+.controller('RequestController', function($scope, $state, $rootScope, $ionicHistory) {
   //http://timothywalters-devthoughts.blogspot.com/2014/06/friend-request-in-javascript-using.html <-- use this to help
   $scope.user = {};
   if ($rootScope.isLoggedIn) {
@@ -145,7 +146,10 @@ angular.module('ionicParseApp.controllers', [])
       userQuery.equalTo("nextuser", Parse.User.current().get('username'));
       userQuery.find({
           success: function (friend) {
-            alert(friend.length);
+            for(var i = 0; i<friend.length; i++){
+              var object = friend[i];
+              alert(object.id + ' - ' + object.get('nextuser'));
+            }
           },
           error: function (error) {
               alert(error);
@@ -160,22 +164,6 @@ angular.module('ionicParseApp.controllers', [])
       });*/
     //}
   }
-  /*if (!$rootScope.isLoggedIn) {
-    var personQuery = new Parse.Query(Parse.Picture);
-    personQuery.equalTo("nextuser", Parse.User.current().get('username'))
-    $scope.sendInfo = function(){
-      alert("hllo")
-      personQuery.equalTo("username", $scope.user.userSearched);
-      personQuery.find({
-          success: function (friend) {
-            alert("Successfully retrieved " + friend.length + "people");
-          },
-          error: function (error) {
-              //Show if no user was found to match
-          }
-      })
-    }
-  }*/
 })
 
 .controller('HomeController', function($scope, $state, $rootScope) {

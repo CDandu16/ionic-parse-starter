@@ -23,9 +23,10 @@ Run the project in your browser by running `ionic serve`.
 Made with love by [alevicki](https://github.com/alevicki)
 
 ## TodoList
-3).Add Friends
-4).Send Pictures to friends
-5).Send array of pictures back to original user
+1).Add Friends</br>
+2).Send Pictures to friends</br>
+3).Send array of pictures back to original user</br>
+4).Allow users to view requests(almost done)
 
 =======
 Made with swag by Chaitu and Tim

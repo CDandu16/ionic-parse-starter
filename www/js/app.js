@@ -59,6 +59,16 @@ angular.module('ionicParseApp',
                 }
             })
 
+            .state('app.requests', {
+                url: '/requests',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/requests.html',
+                        controller: 'RequestController'
+                    }
+                }
+            })
+
             .state('app.friend', {
                 url: '/friend',
                 views: {
@@ -67,7 +77,7 @@ angular.module('ionicParseApp',
                         controller: 'FriendController'
                     }
                 }
-            })            
+            })
 
             .state('app.forgot', {
                 url: '/forgot',

@@ -59,6 +59,16 @@ angular.module('ionicParseApp',
                 }
             })
 
+            .state('app.friend', {
+                url: '/friend',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/friend.html',
+                        controller: 'FriendController'
+                    }
+                }
+            })            
+
             .state('app.forgot', {
                 url: '/forgot',
                 views: {
@@ -77,17 +87,8 @@ angular.module('ionicParseApp',
                         controller: 'RegisterController'
                     }
                 }
-            })
-
-            .state('app.friend', {
-                url: '/friend',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/friend.html',
-                        controller: 'FriendController'
-                    }
-                }
             });
+
 
         $urlRouterProvider.otherwise('/welcome');
     })

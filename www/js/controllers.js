@@ -84,9 +84,50 @@ angular.module('ionicParseApp.controllers', [])
   }
 })
 
-.controller('FriendController', function($scope, $state, $rootScope, $stateParams, $ionicHistory){
-  if (!$rootScope.isLoggedIn) {
-        $state.go('welcome');
+.controller('FriendController', function($scope, $state, $rootScope, $ionicHistory){
+  $scope.user = {};
+  if ($rootScope.isLoggedIn) {
+    var RequestStatus = {
+      requested: 'requested',
+      rejected: 'rejected',
+      approved: 'approved'
+    };
+
+    var FriendRequest = Parse.Object.extend("FriendRequest");
+    var friendRequest = new FriendRequest();
+    var currentUser = Parse.User.current();
+    var userQuery = new Parse.Query(Parse.User);
+
+    $scope.sendInfo = function(){
+      userQuery.equalTo("username", $scope.user.userSearched);
+      userQuery.find({
+          success: function (friend) {
+            alert("Successfully retrieved " + friend.length + "people");
+          },
+          error: function (error) {
+              //Show if no user was found to match
+
+
+          }
+      });
+      /*friendRequest.set("username", currentUser)
+      friendRequest.save(null, {
+        success: function(friendRequest) {
+          //execute succes
+        },
+        error: function(friendRequest, error) {
+          // Execute any logic that should take place if the save fails.
+          // error is a Parse.Error with an error code and message.
+        }
+      });*/
+      $scope.imgURI = undefined;
+      $ionicHistory.nextViewOptions({
+        disableBack: true
+      });
+      $state.go('app.home', {
+          clear: true
+      });
+    }
   }
 })
 
@@ -188,7 +229,7 @@ angular.module('ionicParseApp.controllers', [])
     };
 })
 
-.controller('RegisterController', function($scope, $state, $ionicLoading, $rootScope) {
+.controller('RegisterController', function($scope, $state, $ionicLoading, $rootScope, $ionicHistory) {
     $scope.user = {};
     $scope.error = {};
 
@@ -214,6 +255,9 @@ angular.module('ionicParseApp.controllers', [])
                 $ionicLoading.hide();
                 $rootScope.user = Parse.User.current();
                 $rootScope.isLoggedIn = true;
+                $ionicHistory.nextViewOptions({
+                  disableBack: true
+                });
                 $state.go('app.home', {
                     clear: true
                 });

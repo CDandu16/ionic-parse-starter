@@ -85,6 +85,7 @@ angular.module('ionicParseApp.controllers', [])
 })
 
 .controller('FriendController', function($scope, $state, $rootScope, $ionicHistory){
+  //http://timothywalters-devthoughts.blogspot.com/2014/06/friend-request-in-javascript-using.html <-- use this to help
   $scope.user = {};
   if ($rootScope.isLoggedIn) {
     var RequestStatus = {

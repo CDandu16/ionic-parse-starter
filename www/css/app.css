@@ -8,8 +8,8 @@
 }
 
 .bar{background-color:#565656}
-.item{background-color:#000033; color:white;}
+/**.item{background-color:#000033; color:white;} */
 body{font-family:"Trebuchet MS", Helvetica, sans-serif;}
 
-#myName{color:red;}
 
+#centPic{text-align: center;}

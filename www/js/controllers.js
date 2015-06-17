@@ -66,7 +66,7 @@ angular.module('ionicParseApp.controllers', [])
       picture.set("image64", $scope.imgURI)
       picture.set("chain", $scope.user.chainLength)
       picture.set("nextuser", $scope.user.usertosendto)
-      picture.set("username", $rootScope.user)
+      picture.set("currentUser", Parse.User.current().get('username'))
       picture.save(null, {
         success: function(picture) {
           //execute succes
@@ -146,15 +146,37 @@ angular.module('ionicParseApp.controllers', [])
       userQuery.equalTo("nextuser", Parse.User.current().get('username'));
       userQuery.find({
           success: function (friend) {
-            for(var i = 0; i<friend.length; i++){
+            $scope.pictureRecieveds = friend
+            /*for(var i = 0; i<friend.length; i++){
               var object = friend[i];
-              alert(object.id + ' - ' + object.get('nextuser'));
-            }
+              $scope.pictureRecieved = object.get('nextuser');
+              //alert(object.id + ' - ' + object.get('nextuser'));
+            }*/
           },
           error: function (error) {
               alert(error);
           }
       });
+      $scope.doRefresh = function() {
+        userQuery.equalTo("nextuser", Parse.User.current().get('username'));
+        userQuery.find({
+            success: function (friend) {
+              $scope.pictureRecieveds = friend
+              /*for(var i = 0; i<friend.length; i++){
+                var object = friend[i];
+                $scope.pictureRecieved = object.get('nextuser');
+                //alert(object.id + ' - ' + object.get('nextuser'));
+              }*/
+              $scope.$broadcast('scroll.refreshComplete');
+            },
+            error: function (err) {
+              //do something if error
+            }
+        });
+      };
+      /*$scope.doClick = function(){
+        $state.go('app.view');
+      }*/
       //$scope.imgURI = undefined;
       /*$ionicHistory.nextViewOptions({
         disableBack: true
@@ -163,6 +185,24 @@ angular.module('ionicParseApp.controllers', [])
           clear: true
       });*/
     //}
+  }
+})
+
+.controller('ViewController', function($scope, $state,$stateParams, $rootScope) {
+  //alert($stateParams.viewid)
+  if (!$rootScope.isLoggedIn) {
+    var Picture = Parse.Object.extend("Picture");
+    var userQuery = new Parse.Query(Picture);
+
+    userQuery.equalTo("objectId", $stateParams.viewid);
+    userQuery.find({
+      success: function (friend) {
+        alert('hello')
+      },
+      error: function (error) {
+          alert("you suck");
+      }
+    });
   }
 })
 

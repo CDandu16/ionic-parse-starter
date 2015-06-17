@@ -192,14 +192,14 @@ angular.module('ionicParseApp.controllers', [])
   if ($rootScope.isLoggedIn){
     var Pic = Parse.Object.extend("Picture");
     var queryThatPic = new Parse.Query(Pic);
-    queryThatPic.equalTo("objectID", $stateParams.viewid)
+    queryThatPic.equalTo("objectId", $stateParams.viewid)
     queryThatPic.find({
-        success: function (friend) {
-          /*for(var i = 0; i<friend.length; i++){
-            var object = friend[i];
-            $scope.pictureRecieved = object.get('nextuser');
-            //alert(object.id + ' - ' + object.get('nextuser'));
-          }*/
+        success: function (love) {
+          //alert(friend.id)
+          $scope.thingone = love;
+          //alert(object.length)
+          //alert(friend.id)
+          //$scope.image = friend.get('image64')
         },
         error: function (error) {
             alert(error);

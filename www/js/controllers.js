@@ -63,6 +63,7 @@ angular.module('ionicParseApp.controllers', [])
       var Picture = Parse.Object.extend("Picture");
       var picture = new Picture();
       picture.set("name", $scope.user.nameOfChain)
+      picture.set("username", Parse.User.current())
       picture.set("image64", $scope.imgURI)
       picture.set("chain", $scope.user.chainLength)
       picture.set("nextuser", $scope.user.usertosendto)
@@ -188,7 +189,8 @@ angular.module('ionicParseApp.controllers', [])
   }
 })
 
-.controller('ViewController', function($scope, $state,$stateParams, $rootScope) {
+.controller('ViewController', function($scope, $state, $stateParams, $rootScope) {
+  $scope.user = {};
   if ($rootScope.isLoggedIn){
     var Pic = Parse.Object.extend("Picture");
     var queryThatPic = new Parse.Query(Pic);
@@ -197,7 +199,9 @@ angular.module('ionicParseApp.controllers', [])
     queryThatPic.find({
         success: function (love) {
           //alert(friend.id)
-          $scope.thingone = love;
+          console.dir(love[0].attributes)
+          $scope.love = love[0].attributes.image64;
+
           //alert($scope.thingone)
           //alert(object.length)
           //alert(friend.id)

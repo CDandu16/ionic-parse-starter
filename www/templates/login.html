@@ -2,12 +2,12 @@
     <ion-content has-header="true" has-tabs="true" padding="true">
         <div class="list">
             <label class="item item-input">
-                <span class="input-label">Username</span>
-                <input type="text" ng-model="user.username">
+                <!--<span class="input-label">Username</span>-->
+                <input type="text" ng-model="user.username" placeholder="Username">
             </label>
             <label class="item item-input">
-                <span class="input-label">Password</span>
-                <input type="password" ng-model="user.password">
+                <!--<span class="input-label">Password</span>-->
+                <input type="password" ng-model="user.password" placeholder="Password">
             </label>
         </div>
         <div class="assertive" ng-show="error.message">{{error.message}}</div>

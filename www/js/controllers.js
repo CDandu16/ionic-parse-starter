@@ -189,19 +189,21 @@ angular.module('ionicParseApp.controllers', [])
 })
 
 .controller('ViewController', function($scope, $state,$stateParams, $rootScope) {
-  //alert($stateParams.viewid)
-  if (!$rootScope.isLoggedIn) {
-    var Picture = Parse.Object.extend("Picture");
-    var userQuery = new Parse.Query(Picture);
-
-    userQuery.equalTo("objectId", $stateParams.viewid);
-    userQuery.find({
-      success: function (friend) {
-        alert('hello')
-      },
-      error: function (error) {
-          alert("you suck");
-      }
+  if ($rootScope.isLoggedIn){
+    var Pic = Parse.Object.extend("Picture");
+    var queryThatPic = new Parse.Query(Pic);
+    queryThatPic.equalTo("objectID", $stateParams.viewid)
+    queryThatPic.find({
+        success: function (friend) {
+          /*for(var i = 0; i<friend.length; i++){
+            var object = friend[i];
+            $scope.pictureRecieved = object.get('nextuser');
+            //alert(object.id + ' - ' + object.get('nextuser'));
+          }*/
+        },
+        error: function (error) {
+            alert(error);
+        }
     });
   }
 })

@@ -193,18 +193,46 @@ angular.module('ionicParseApp.controllers', [])
   }
 })
 
-.controller('ViewController', function($scope, $state, $stateParams, $rootScope) {
+.controller('ViewController', function($scope, $state, $stateParams, $rootScope, $ionicHistory) {
   $scope.user = {};
   if ($rootScope.isLoggedIn){
     var Pic = Parse.Object.extend("Picture");
+    var PicNew = new Pic();
     var queryThatPic = new Parse.Query(Pic);
     $scope.titleOfPic = $stateParams.viewid;
     queryThatPic.equalTo("objectId", $scope.titleOfPic)
     queryThatPic.find({
-        success: function (love) {
+        success: function (EachPic) {
           //alert(friend.id)
-          console.dir(love[0].attributes)
-          $scope.love = love[0].attributes.image64;
+          //console.dir(EachPic[0].attributes)
+          $scope.love = EachPic[0].attributes.image64;
+          $scope.currentUsersContrib = EachPic[0].attributes.UsersContributed;
+        },
+        error: function (error) {
+            alert(error);
+        }
+    });
+  }
+  $scope.newPicChain = function(){
+    $scope.nextuser = $scope.user.nextUser
+    //alert($scope.nextuser)
+    queryThatPic.equalTo("objectId", $scope.titleOfPic)
+    queryThatPic.find({
+        success: function (EachPic) {
+          //console.dir(EachPic[0].attributes)
+          //console.dir(EachPic[0].attributes.UsersContributed)
+          $scope.life = EachPic[0];
+          $scope.currentUsersContrib = EachPic[0].attributes.UsersContributed;
+          $scope.currentUsersContrib.push(Parse.User.current().get('username'))
+          $scope.life.set("nextuser",$scope.user.nextUser)
+          $scope.life.set("UsersContributed",$scope.currentUsersContrib)
+          $scope.life.save();
+          $ionicHistory.nextViewOptions({
+            disableBack: true
+          });
+          $state.go('app.requests', {
+              clear: true
+          });
         },
         error: function (error) {
             alert(error);

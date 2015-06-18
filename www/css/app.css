@@ -15,6 +15,8 @@ body{font-family:"Trebuchet MS", Helvetica, sans-serif;}
 
 #centPic{text-align: center;}
 
+
+/* The bg class is for adding a background image on the welcome.html page */
 .bg {
 	background-image: url(../img/bg.jpg);
 	background-repeat: no-repeat;

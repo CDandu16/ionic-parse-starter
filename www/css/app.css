@@ -22,3 +22,7 @@ body{font-family:"Trebuchet MS", Helvetica, sans-serif;}
 	background-repeat: no-repeat;
 	background-position: center center;
 }
+
+.hideable {
+	display: none;
+}

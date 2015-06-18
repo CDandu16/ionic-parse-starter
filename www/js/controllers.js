@@ -194,7 +194,7 @@ angular.module('ionicParseApp.controllers', [])
   }
 })
 
-.controller('ViewController', function($scope, $state, $stateParams, $rootScope, $ionicHistory) {
+.controller('ViewController', function($scope, $state, $stateParams, $rootScope,$cordovaCamera, $ionicHistory) {
   $scope.user = {};
   if ($rootScope.isLoggedIn){
     var Pic = Parse.Object.extend("Picture");
@@ -213,6 +213,26 @@ angular.module('ionicParseApp.controllers', [])
             alert(error);
         }
     });
+  }
+  $scope.takePicture = function() {
+      var options = {
+          quality : 75,
+          destinationType : Camera.DestinationType.DATA_URL,
+          sourceType : Camera.PictureSourceType.CAMERA,
+          allowEdit : true,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 300,
+          targetHeight: 300,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: false
+      };
+
+      $cordovaCamera.getPicture(options).then(function(imageData) {
+          $scope.imgURI = "data:image/jpeg;base64," + imageData;
+          //do other stuff
+      }, function(err) {
+          // An error occured. Show a message to the user
+      });
   }
   $scope.newPicChain = function(){
     $scope.nextuser = $scope.user.nextUser

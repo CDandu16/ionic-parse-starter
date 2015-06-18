@@ -203,8 +203,8 @@ angular.module('ionicParseApp.controllers', [])
 		success: function (EachPic) {
 		  //alert(friend.id)
 		  //console.dir(EachPic[0].attributes)
-		  $scope.lengthofPicArray = EachPic[0].attributes.image64;
-      $scope.love = EachPic[0].attributes.image64;
+		  $scope.PicArray = EachPic[0].attributes.image64;
+      //console.dir($scope.love.length)
       //console.dir($scope.lengthofPicArray)
 		  $scope.currentUsersContrib = EachPic[0].attributes.UsersContributed;
 		},
@@ -235,7 +235,8 @@ angular.module('ionicParseApp.controllers', [])
   }
   $scope.newPicChain = function(){
 	$scope.nextuser = $scope.user.nextUser
-	//alert($scope.nextuser)
+	$scope.PicArray.push($scope.imgURI)
+  console.dir($scope.imgURI)
 	queryThatPic.equalTo("objectId", $scope.titleOfPic)
 	queryThatPic.find({
 		success: function (EachPic) {
@@ -247,6 +248,7 @@ angular.module('ionicParseApp.controllers', [])
 		  $scope.life.increment("currenchaincount")
 		  $scope.life.set("nextuser",$scope.user.nextUser)
 		  $scope.life.set("UsersContributed",$scope.currentUsersContrib)
+      $scope.life.set("image64", $scope.PicArray)
 		  $scope.life.save();
 		  $ionicHistory.nextViewOptions({
 			disableBack: true

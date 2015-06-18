@@ -14,3 +14,9 @@ body{font-family:"Trebuchet MS", Helvetica, sans-serif;}
 #longBreak{margin-top:20000px; font-size:1200%;}
 
 #centPic{text-align: center;}
+
+.bg {
+	background-image: url(/img/bg.jpg);
+	background-repeat:no-repeat;
+	background-position: center center;
+}

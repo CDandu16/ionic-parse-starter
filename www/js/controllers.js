@@ -66,88 +66,88 @@ angular.module('ionicParseApp.controllers', [])
 	//console.dir(teststuff.length);
 	//console.dir($scope.userscontrib)
 	$scope.sendData = function(){
-    $scope.imageArray.push($scope.imgURI)
-	  var Picture = Parse.Object.extend("Picture");
-	  var picture = new Picture();
-	  picture.set("name", $scope.user.nameOfChain)
-	  picture.set("currenchaincount", 1)
-	  picture.set("username", Parse.User.current())
-	  picture.set("image64", $scope.imageArray)
-	  picture.set("chain", $scope.user.chainLength)
-	  picture.set("nextuser", $scope.user.usertosendto)
-	  picture.set("UsersContributed", teststuff)
-	  picture.save(null, {
-		success: function(picture) {
-		  console.dir('it works')
-		},
-		error: function(picture, error) {
-		  console.dir('you suck ass')
-		}
-	  });
-	  $scope.imgURI = undefined;
-	  $ionicHistory.nextViewOptions({
-		disableBack: true
-	  });
-	  $state.go('app.home', {
-		  clear: true
-	  });
-	}
+      $scope.imageArray.push($scope.imgURI)
+  	  var Picture = Parse.Object.extend("Picture");
+  	  var picture = new Picture();
+  	  picture.set("name", $scope.user.nameOfChain)
+  	  picture.set("currenchaincount", 1)
+  	  picture.set("username", Parse.User.current())
+  	  picture.set("image64", $scope.imageArray)
+  	  picture.set("chain", $scope.user.chainLength)
+  	  picture.set("nextuser", $scope.user.usertosendto)
+  	  picture.set("UsersContributed", teststuff)
+  	  picture.save(null, {
+    		success: function(picture) {
+    		  console.dir('it works')
+    		},
+    		error: function(picture, error) {
+    		  console.dir('you suck ass')
+    		}
+  	  });
+    	$scope.imgURI = undefined;
+    	$ionicHistory.nextViewOptions({
+    		disableBack: true
+    	});
+    	$state.go('app.home', {
+    		clear: true
+    	});
+    }
   }
 })
 
 .controller('FriendController', function($scope, $state, $rootScope, $ionicHistory){
-  //http://timothywalters-devthoughts.blogspot.com/2014/06/friend-request-in-javascript-using.html <-- use this to help
-  /*$scope.user = {};
-  if ($rootScope.isLoggedIn) {
-	var RequestStatus = {
-	  requested: 'requested',
-	  rejected: 'rejected',
-	  approved: 'approved'
-	};
+	//http://timothywalters-devthoughts.blogspot.com/2014/06/friend-request-in-javascript-using.html <-- use this to help
+	$scope.user = {};
+	if ($rootScope.isLoggedIn) {
+		var RequestStatus = {
+			requested: 'requested',
+			rejected: 'rejected',
+			approved: 'approved'
+		};
 
-	var FriendRequest = Parse.Object.extend("FriendRequest");
-	//var friendRequest = new FriendRequest();
-	var currentUser = Parse.User.current();
-	var userQuery = new Parse.Query(Parse.User);
+		var FriendRequest = Parse.Object.extend("FriendRequest");
+		//var friendRequest = new FriendRequest();
+		var currentUser = Parse.User.current();
+		var userQuery = new Parse.Query(Parse.User);
 
-	$scope.sendInfo = function(){
-	  userQuery.equalTo("username", $scope.user.userSearched);
-	  userQuery.find({
-		success: function (friend) {
-		  if (friend.length == 1) {
-		    alert("Request sent!");
-		  } else if {
-		  alert("User not found");
-		  } else {
-		  alert("This should never happen, what did you do");
-		  }
+		$scope.sendInfo = function(){
+			userQuery.equalTo("username", $scope.user.userSearched);
+			userQuery.find({
+				success: function (friend) {
+					if (friend.length == 1) {
+						alert("Request sent!");
+					} else if (friend.length == 0){
+						alert("User not found");
+					} else {
+						alert("This should never happen, what did you do");
+					}
 
-		  },
-		  error: function (error) {
-			  //Show if no user was found to match
-			alert("Error!")
+				},
+				error: function (error) {
+					//Show if no user was found to match
+					alert("Error!")
 
-		  }
-	  });
-	  FriendRequest.set("username", currentUser)
-	  FriendRequest.save(null, {
-		success: function(friendRequest) {
-		  //execute succes
-		},
-		error: function(friendRequest, error) {
-		  // Execute any logic that should take place if the save fails.
-		  // error is a Parse.Error with an error code and message.
+				}
+			});
+			FriendRequest.set("username", currentUser)
+			FriendRequest.save(null, {
+				success: function(friendRequest) {
+					//execute succes
+				},
+				error: function(friendRequest, error) {
+					// Execute any logic that should take place if the save fails.
+					// error is a Parse.Error with an error code and message.
+				}
+			});
+			$scope.imgURI = undefined;
+			$ionicHistory.nextViewOptions({
+				disableBack: true
+			});
+			$state.go('app.home', {
+				clear: true
+			});
 		}
-	  });
-	  $scope.imgURI = undefined;
-	  $ionicHistory.nextViewOptions({
-		disableBack: true
-	  });
-	  $state.go('app.home', {
-		  clear: true
-	  });
 	}
-}*/
 })
 
 .controller('RequestController', function($scope, $state, $rootScope, $ionicHistory) {
@@ -157,49 +157,49 @@ angular.module('ionicParseApp.controllers', [])
 	var userQuery = new Parse.Query(Picture);
 
 	//$scope.sendData = function(){
-	  userQuery.equalTo("nextuser", Parse.User.current().get('username'));
-	  userQuery.find({
-		  success: function (friend) {
+	userQuery.equalTo("nextuser", Parse.User.current().get('username'));
+	userQuery.find({
+		success: function (friend) {
 			$scope.pictureRecieveds = friend
 			/*for(var i = 0; i<friend.length; i++){
-			  var object = friend[i];
-			  $scope.pictureRecieved = object.get('nextuser');
-			  //alert(object.id + ' - ' + object.get('nextuser'));
-			}*/
-		  },
-		  error: function (error) {
-			  alert(error);
-		  }
-	  });
-	  $scope.doRefresh = function() {
-		userQuery.equalTo("nextuser", Parse.User.current().get('username'));
-		userQuery.find({
-			success: function (friend) {
-			  $scope.pictureRecieveds = friend
-			  /*for(var i = 0; i<friend.length; i++){
 				var object = friend[i];
 				$scope.pictureRecieved = object.get('nextuser');
 				//alert(object.id + ' - ' + object.get('nextuser'));
-			  }*/
-			  $scope.$broadcast('scroll.refreshComplete');
+			}*/
+		},
+		error: function (error) {
+			alert(error);
+		}
+	});
+	$scope.doRefresh = function() {
+		userQuery.equalTo("nextuser", Parse.User.current().get('username'));
+		userQuery.find({
+			success: function (friend) {
+				$scope.pictureRecieveds = friend
+				/*for(var i = 0; i<friend.length; i++){
+					var object = friend[i];
+					$scope.pictureRecieved = object.get('nextuser');
+					//alert(object.id + ' - ' + object.get('nextuser'));
+				}*/
+				$scope.$broadcast('scroll.refreshComplete');
 			},
 			error: function (err) {
-			  //do something if error
+				//do something if error
 			}
 		});
-	  };
-	  /*$scope.doClick = function(){
+	};
+	/*$scope.doClick = function(){
 		$state.go('app.view');
-	  }*/
-	  //$scope.imgURI = undefined;
-	  /*$ionicHistory.nextViewOptions({
+	}*/
+	//$scope.imgURI = undefined;
+	/*$ionicHistory.nextViewOptions({
 		disableBack: true
-	  });
-	  $state.go('app.home', {
-		  clear: true
-	  });*/
-	//}
-  }
+		});
+		$state.go('app.home', {
+		clear: true
+	});*/
+//}
+}
 })
 
 .controller('ViewController', function($scope, $state, $stateParams, $rootScope,$cordovaCamera, $ionicHistory) {
@@ -269,12 +269,12 @@ angular.module('ionicParseApp.controllers', [])
 		error: function (error) {
 			alert(error);
 		}
-	});
+	 });
   }
 })
 
 .controller('HomeController', function($scope, $state, $rootScope) {
-  if (!$rootScope.isLoggedIn) {
+	if (!$rootScope.isLoggedIn) {
 		$state.go('welcome');
 	}
 })
@@ -303,7 +303,7 @@ angular.module('ionicParseApp.controllers', [])
 				$rootScope.user = user;
 				$rootScope.isLoggedIn = true;
 				$ionicHistory.nextViewOptions({
-				  disableBack: true
+					disableBack: true
 				});
 				$state.go('app.home', {
 					clear: true
@@ -315,9 +315,9 @@ angular.module('ionicParseApp.controllers', [])
 				// The login failed. Check error to see why.
 				if (err.code === 101) {
 					$scope.error.message = 'Invalid login credentials';
-				} else {
+					} else {
 					$scope.error.message = 'An unexpected error has ' +
-						'occurred, please try again.';
+					'occurred, please try again.';
 				}
 				$scope.$apply();
 			}
@@ -356,9 +356,9 @@ angular.module('ionicParseApp.controllers', [])
 				$ionicLoading.hide();
 				if (err.code === 125) {
 					$scope.error.message = 'Email address does not exist';
-				} else {
+					} else {
 					$scope.error.message = 'An unknown error has occurred, ' +
-						'please try again';
+					'please try again';
 				}
 				$scope.$apply();
 			}
@@ -397,7 +397,7 @@ angular.module('ionicParseApp.controllers', [])
 				$rootScope.user = Parse.User.current();
 				$rootScope.isLoggedIn = true;
 				$ionicHistory.nextViewOptions({
-				  disableBack: true
+					disableBack: true
 				});
 				$state.go('app.home', {
 					clear: true
@@ -407,11 +407,11 @@ angular.module('ionicParseApp.controllers', [])
 				$ionicLoading.hide();
 				if (error.code === 125) {
 					$scope.error.message = 'Please specify a valid email ' +
-						'address';
-				} else if (error.code === 202) {
+					'address';
+					} else if (error.code === 202) {
 					$scope.error.message = 'The username is already ' +
-						'registered';
-				} else {
+					'registered';
+					} else {
 					$scope.error.message = error.message;
 				}
 				$scope.$apply();
@@ -446,4 +446,4 @@ angular.module('ionicParseApp.controllers', [])
 	$scope.toggleMenu = function() {
 		$scope.sideMenuController.toggleRight();
 	};
-})
+	})

@@ -1,7 +1,8 @@
 <ion-view title="H3SO5" >
     <ion-content has-tabs="true" padding="true" ng-controller="ViewController">
-      <img ng-show="love !== undefined" ng-src="{{love}}">
-      <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
+      <!--<img ng-show="love !== undefined" ng-src="{{love[0]}}">-->
+      <!--<img ng-repeat=""  ng-src="{{love[index]}}">-->
+      <img ng-repeat="index in lengthofPicArray" ng-src="{{index}}">
       <img ng-show="imgURI === undefined" ng-src="http://placehold.it/300x300">
       <label class="item item-input">
         <input type="text" ng-model="user.nextUser" placeholder="Enter Next User">

@@ -38,6 +38,7 @@ angular.module('ionicParseApp.controllers', [])
 
 .controller('CreaterController', function($scope, $state, $rootScope, $cordovaCamera, $ionicHistory ) {
   $scope.userscontrib = [];
+  $scope.imageArray = [];
   $scope.imgURI = undefined;
   if ($rootScope.isLoggedIn) {
 	$scope.takePicture = function() {
@@ -62,15 +63,16 @@ angular.module('ionicParseApp.controllers', [])
 	}
 	$scope.userscontrib.push(Parse.User.current().get('username'));
 	var teststuff = $scope.userscontrib;
-	console.dir(teststuff.length);
+	//console.dir(teststuff.length);
 	//console.dir($scope.userscontrib)
 	$scope.sendData = function(){
+    $scope.imageArray.push($scope.imgURI)
 	  var Picture = Parse.Object.extend("Picture");
 	  var picture = new Picture();
 	  picture.set("name", $scope.user.nameOfChain)
 	  picture.set("currenchaincount", 1)
 	  picture.set("username", Parse.User.current())
-	  picture.set("image64", $scope.imgURI)
+	  picture.set("image64", $scope.imageArray)
 	  picture.set("chain", $scope.user.chainLength)
 	  picture.set("nextuser", $scope.user.usertosendto)
 	  picture.set("UsersContributed", teststuff)
@@ -149,7 +151,6 @@ angular.module('ionicParseApp.controllers', [])
 })
 
 .controller('RequestController', function($scope, $state, $rootScope, $ionicHistory) {
-  //http://timothywalters-devthoughts.blogspot.com/2014/06/friend-request-in-javascript-using.html <-- use this to help
   $scope.user = {};
   if ($rootScope.isLoggedIn) {
 	var Picture = Parse.Object.extend("Picture");
@@ -206,14 +207,16 @@ angular.module('ionicParseApp.controllers', [])
   if ($rootScope.isLoggedIn){
 	var Pic = Parse.Object.extend("Picture");
 	var PicNew = new Pic();
-	var queryThatPic = new Parse.Query(Pic);
+ 	var queryThatPic = new Parse.Query(Pic);
 	$scope.titleOfPic = $stateParams.viewid;
 	queryThatPic.equalTo("objectId", $scope.titleOfPic)
 	queryThatPic.find({
 		success: function (EachPic) {
 		  //alert(friend.id)
 		  //console.dir(EachPic[0].attributes)
-		  $scope.love = EachPic[0].attributes.image64;
+		  $scope.lengthofPicArray = EachPic[0].attributes.image64;
+      $scope.love = EachPic[0].attributes.image64;
+      //console.dir($scope.lengthofPicArray)
 		  $scope.currentUsersContrib = EachPic[0].attributes.UsersContributed;
 		},
 		error: function (error) {

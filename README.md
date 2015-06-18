@@ -24,9 +24,7 @@ Made with love by [alevicki](https://github.com/alevicki)
 
 ## TodoList
 1).Add Friends</br>
-2).Send Pictures to friends</br>
-3).Send array of pictures back to original user</br>
-4).Allow users to view requests(almost done)
+2).Send array of pictures back to original user</br>
 
 =======
 Made with swag by Chaitu and Tim

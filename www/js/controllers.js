@@ -41,57 +41,57 @@ angular.module('ionicParseApp.controllers', [])
   $scope.imageArray = [];
   $scope.imgURI = undefined;
   if ($rootScope.isLoggedIn) {
-	$scope.takePicture = function() {
-		var options = {
-			quality : 75,
-			destinationType : Camera.DestinationType.DATA_URL,
-			sourceType : Camera.PictureSourceType.CAMERA,
-			allowEdit : true,
-			encodingType: Camera.EncodingType.JPEG,
-			targetWidth: 300,
-			targetHeight: 300,
-			popoverOptions: CameraPopoverOptions,
-			saveToPhotoAlbum: false
-		};
+  	$scope.takePicture = function() {
+  		var options = {
+  			quality : 75,
+  			destinationType : Camera.DestinationType.DATA_URL,
+  			sourceType : Camera.PictureSourceType.CAMERA,
+  			allowEdit : true,
+  			encodingType: Camera.EncodingType.JPEG,
+  			targetWidth: 300,
+  			targetHeight: 300,
+  			popoverOptions: CameraPopoverOptions,
+  			saveToPhotoAlbum: false
+  		};
 
-		$cordovaCamera.getPicture(options).then(function(imageData) {
-			$scope.imgURI = "data:image/jpeg;base64," + imageData;
-			//do other stuff
-		}, function(err) {
-			// An error occured. Show a message to the user
-		});
-	}
-	$scope.userscontrib.push(Parse.User.current().get('username'));
-	var teststuff = $scope.userscontrib;
-	//console.dir(teststuff.length);
-	//console.dir($scope.userscontrib)
-	$scope.sendData = function(){
-      $scope.imageArray.push($scope.imgURI)
-  	  var Picture = Parse.Object.extend("Picture");
-  	  var picture = new Picture();
-  	  picture.set("name", $scope.user.nameOfChain)
-  	  picture.set("currenchaincount", 1)
-  	  picture.set("username", Parse.User.current())
-  	  picture.set("image64", $scope.imageArray)
-  	  picture.set("chain", $scope.user.chainLength)
-  	  picture.set("nextuser", $scope.user.usertosendto)
-  	  picture.set("UsersContributed", teststuff)
-  	  picture.save(null, {
-    		success: function(picture) {
-    		  console.dir('it works')
-    		},
-    		error: function(picture, error) {
-    		  console.dir('you suck ass')
-    		}
-  	  });
-    	$scope.imgURI = undefined;
-    	$ionicHistory.nextViewOptions({
-    		disableBack: true
-    	});
-    	$state.go('app.home', {
-    		clear: true
-    	});
-    }
+  		$cordovaCamera.getPicture(options).then(function(imageData) {
+  			$scope.imgURI = "data:image/jpeg;base64," + imageData;
+  			//do other stuff
+  		}, function(err) {
+  			// An error occured. Show a message to the user
+  		});
+  	}
+  	$scope.userscontrib.push(Parse.User.current().get('username'));
+  	var teststuff = $scope.userscontrib;
+  	//console.dir(teststuff.length);
+  	//console.dir($scope.userscontrib)
+  	$scope.sendData = function(){
+        $scope.imageArray.push($scope.imgURI)
+    	  var Picture = Parse.Object.extend("Picture");
+    	  var picture = new Picture();
+    	  picture.set("name", $scope.user.nameOfChain)
+    	  picture.set("currenchaincount", 1)
+    	  picture.set("username", Parse.User.current())
+    	  picture.set("image64", $scope.imageArray)
+    	  picture.set("chain", $scope.user.chainLength)
+    	  picture.set("nextuser", $scope.user.usertosendto)
+    	  picture.set("UsersContributed", teststuff)
+    	  picture.save(null, {
+      		success: function(picture) {
+      		  console.dir('it works')
+      		},
+      		error: function(picture, error) {
+      		  console.dir('you suck ass')
+      		}
+    	  });
+      	$scope.imgURI = undefined;
+      	$ionicHistory.nextViewOptions({
+      		disableBack: true
+      	});
+      	$state.go('app.home', {
+      		clear: true
+      	});
+      }
   }
 })
 
@@ -153,53 +153,42 @@ angular.module('ionicParseApp.controllers', [])
 .controller('RequestController', function($scope, $state, $rootScope, $ionicHistory) {
   $scope.user = {};
   if ($rootScope.isLoggedIn) {
-	var Picture = Parse.Object.extend("Picture");
-	var userQuery = new Parse.Query(Picture);
+  	var Picture = Parse.Object.extend("Picture");
+  	var userQuery = new Parse.Query(Picture);
 
-	//$scope.sendData = function(){
-	userQuery.equalTo("nextuser", Parse.User.current().get('username'));
-	userQuery.find({
-		success: function (friend) {
-			$scope.pictureRecieveds = friend
-			/*for(var i = 0; i<friend.length; i++){
-				var object = friend[i];
-				$scope.pictureRecieved = object.get('nextuser');
-				//alert(object.id + ' - ' + object.get('nextuser'));
-			}*/
-		},
-		error: function (error) {
-			alert(error);
-		}
-	});
-	$scope.doRefresh = function() {
-		userQuery.equalTo("nextuser", Parse.User.current().get('username'));
-		userQuery.find({
-			success: function (friend) {
-				$scope.pictureRecieveds = friend
-				/*for(var i = 0; i<friend.length; i++){
-					var object = friend[i];
-					$scope.pictureRecieved = object.get('nextuser');
-					//alert(object.id + ' - ' + object.get('nextuser'));
-				}*/
-				$scope.$broadcast('scroll.refreshComplete');
-			},
-			error: function (err) {
-				//do something if error
-			}
-		});
-	};
-	/*$scope.doClick = function(){
-		$state.go('app.view');
-	}*/
-	//$scope.imgURI = undefined;
-	/*$ionicHistory.nextViewOptions({
-		disableBack: true
-		});
-		$state.go('app.home', {
-		clear: true
-	});*/
-//}
-}
+  	//$scope.sendData = function(){
+  	userQuery.equalTo("nextuser", Parse.User.current().get('username'));
+  	userQuery.find({
+  		success: function (friend) {
+  			$scope.pictureRecieveds = friend
+  			/*for(var i = 0; i<friend.length; i++){
+  				var object = friend[i];
+  				$scope.pictureRecieved = object.get('nextuser');
+  				//alert(object.id + ' - ' + object.get('nextuser'));
+  			}*/
+  		},
+  		error: function (error) {
+  			alert(error);
+  		}
+  	});
+  	$scope.doRefresh = function() {
+  		userQuery.equalTo("nextuser", Parse.User.current().get('username'));
+  		userQuery.find({
+  			success: function (friend) {
+  				$scope.pictureRecieveds = friend
+  				/*for(var i = 0; i<friend.length; i++){
+  					var object = friend[i];
+  					$scope.pictureRecieved = object.get('nextuser');
+  					//alert(object.id + ' - ' + object.get('nextuser'));
+  				}*/
+  				$scope.$broadcast('scroll.refreshComplete');
+  			},
+  			error: function (err) {
+  				//do something if error
+  			}
+  		});
+  	};
+  }
 })
 
 .controller('ViewController', function($scope, $state, $stateParams, $rootScope,$cordovaCamera, $ionicHistory) {

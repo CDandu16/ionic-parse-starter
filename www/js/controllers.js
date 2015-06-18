@@ -37,6 +37,7 @@ angular.module('ionicParseApp.controllers', [])
 })
 
 .controller('CreaterController', function($scope, $state, $rootScope, $cordovaCamera, $ionicHistory ) {
+  $scope.userscontrib = [];
   $scope.imgURI = undefined;
   if ($rootScope.isLoggedIn) {
     $scope.takePicture = function() {
@@ -59,6 +60,10 @@ angular.module('ionicParseApp.controllers', [])
             // An error occured. Show a message to the user
         });
     }
+    $scope.userscontrib.push(Parse.User.current().get('username'));
+    var teststuff = $scope.userscontrib;
+    console.dir(teststuff.length);
+    //console.dir($scope.userscontrib)
     $scope.sendData = function(){
       var Picture = Parse.Object.extend("Picture");
       var picture = new Picture();
@@ -67,14 +72,13 @@ angular.module('ionicParseApp.controllers', [])
       picture.set("image64", $scope.imgURI)
       picture.set("chain", $scope.user.chainLength)
       picture.set("nextuser", $scope.user.usertosendto)
-      picture.set("currentUser", Parse.User.current().get('username'))
+      picture.set("UsersContributed", teststuff)
       picture.save(null, {
         success: function(picture) {
-          //execute succes
+          console.dir('it works')
         },
         error: function(picture, error) {
-          // Execute any logic that should take place if the save fails.
-          // error is a Parse.Error with an error code and message.
+          console.dir('you suck ass')
         }
       });
       $scope.imgURI = undefined;
@@ -201,11 +205,6 @@ angular.module('ionicParseApp.controllers', [])
           //alert(friend.id)
           console.dir(love[0].attributes)
           $scope.love = love[0].attributes.image64;
-
-          //alert($scope.thingone)
-          //alert(object.length)
-          //alert(friend.id)
-          //$scope.image = friend.get('image64')
         },
         error: function (error) {
             alert(error);
@@ -215,7 +214,6 @@ angular.module('ionicParseApp.controllers', [])
 })
 
 .controller('HomeController', function($scope, $state, $rootScope) {
-
   if (!$rootScope.isLoggedIn) {
         $state.go('welcome');
     }

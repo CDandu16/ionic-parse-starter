@@ -68,6 +68,7 @@ angular.module('ionicParseApp.controllers', [])
       var Picture = Parse.Object.extend("Picture");
       var picture = new Picture();
       picture.set("name", $scope.user.nameOfChain)
+      picture.set("currenchaincount", 1)
       picture.set("username", Parse.User.current())
       picture.set("image64", $scope.imgURI)
       picture.set("chain", $scope.user.chainLength)
@@ -224,6 +225,7 @@ angular.module('ionicParseApp.controllers', [])
           $scope.life = EachPic[0];
           $scope.currentUsersContrib = EachPic[0].attributes.UsersContributed;
           $scope.currentUsersContrib.push(Parse.User.current().get('username'))
+          $scope.life.increment("currenchaincount")
           $scope.life.set("nextuser",$scope.user.nextUser)
           $scope.life.set("UsersContributed",$scope.currentUsersContrib)
           $scope.life.save();

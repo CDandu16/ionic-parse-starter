@@ -11,5 +11,6 @@
 /**.item{background-color:#000033; color:white;} */
 body{font-family:"Trebuchet MS", Helvetica, sans-serif;}
 
+#longBreak{margin-top:20000px; font-size:1200%;}
 
 #centPic{text-align: center;}
